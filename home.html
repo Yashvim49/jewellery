@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery — Oxidise Jewellery</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --ivory: #FCF9F5;
+            --ivory-deep: #F5EFEB;
+            --maroon: #5C1A1B;
+            --maroon-deep: #3E1011;
+            --gold: #C5A059;
+            --gold-light: #EAD09E;
+            --gold-wash: rgba(197, 160, 89, 0.08);
+            --charcoal: #2B2625;
+            --line: rgba(62, 16, 17, 0.08);
+            --shadow: 0 16px 36px rgba(62, 16, 17, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--ivory);
+            color: var(--charcoal);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        .eyebrow {
+            font-family: 'Poppins', sans-serif;
+            font-size: .7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* ---------- Top bar ---------- */
+        .top-bar {
+            background: var(--ivory);
+            border-bottom: 1px solid var(--line);
+            padding: .9rem 0;
+        }
+
+        .brand-mark {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        .brand-mark .brand-main {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--maroon-deep);
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .brand-mark .brand-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 500;
+            font-size: .85rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-top: 6px;
+        }
+
+        .btn-whatsapp-nav {
+            background: var(--maroon-deep);
+            color: var(--ivory);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: .74rem;
+            letter-spacing: 1px;
+            padding: .55rem 1.15rem;
+            border: none;
+            transition: background .25s ease, color .25s ease;
+        }
+
+        .btn-whatsapp-nav:hover {
+            background: var(--maroon);
+            color: var(--gold-light);
+        }
+
+        /* ---------- Page head ---------- */
+        .page-head {
+            padding: 4.5rem 0 3.5rem;
+            text-align: center;
+            background-color: var(--ivory);
+            background-image: linear-gradient(rgba(197, 160, 89, 0.1) 1px, transparent 1px);
+            background-size: 100% 2.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-head::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: clamp(20px, 8vw, 120px);
+            width: 1px;
+            background: rgba(220, 53, 69, 0.2);
+            /* Subtle notebook margin line */
+            pointer-events: none;
+        }
+
+        .page-head h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.2rem, 7vw, 4.8rem);
+            color: var(--maroon-deep);
+            font-weight: 400;
+            margin-top: 0.5rem;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-head p {
+            color: #5c5450;
+            max-width: 480px;
+            margin: .6rem auto 0;
+            font-size: .95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .thread {
+            position: relative;
+            height: 1px;
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(90deg, transparent, var(--gold) 15%, var(--gold) 85%, transparent);
+            opacity: .55;
+        }
+
+        .thread::before,
+        .thread::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 7px;
+            height: 7px;
+            background: var(--gold);
+        }
+
+        .thread::before {
+            left: calc(15% - 3px);
+        }
+
+        .thread::after {
+            right: calc(15% - 3px);
+        }
+
+        /* ---------- Sticky controls ---------- */
+        .controls-bar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: rgba(252, 249, 245, .97);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+            padding: 1rem 0;
+            margin-bottom: 2.2rem;
+        }
+
+        .chip-row {
+            display: flex;
+            gap: .55rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: .1rem 0;
+        }
+
+        .chip-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip {
+            font-family: 'Poppins', sans-serif;
+            font-size: .72rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: .48rem 1.2rem;
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            background: transparent;
+            color: var(--charcoal);
+            white-space: nowrap;
+            flex: 0 0 auto;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chip.active,
+        .chip:hover {
+            background: var(--maroon-deep);
+            border-color: var(--maroon-deep);
+            color: var(--ivory);
+            box-shadow: 0 4px 12px rgba(62, 16, 17, 0.15);
+        }
+
+        .search-shell {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-shell i {
+            position: absolute;
+            left: 14px;
+            color: var(--gold);
+            font-size: .85rem;
+            pointer-events: none;
+        }
+
+        .search-exo {
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            padding: .5rem 1.1rem .5rem 2.3rem;
+            font-family: 'Jost', sans-serif;
+            font-size: .88rem;
+            background: #fff;
+            min-width: 210px;
+            transition: all 0.3s ease;
+        }
+
+        .search-exo:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-wash);
+        }
+
+        .result-count {
+            font-family: 'Poppins', sans-serif;
+            font-size: .7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #9a8f86;
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        /* ---------- Gallery grid ---------- */
+        .gallery-wrap {
+            padding-bottom: 1.5rem;
+        }
+
+        .gal-item {
+            position: relative;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise .55s ease forwards;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gal-item:nth-child(1) {
+            animation-delay: .02s;
+        }
+
+        .gal-item:nth-child(2) {
+            animation-delay: .07s;
+        }
+
+        .gal-item:nth-child(3) {
+            animation-delay: .12s;
+        }
+
+        .gal-item:nth-child(4) {
+            animation-delay: .17s;
+        }
+
+        .gal-item:nth-child(5) {
+            animation-delay: .22s;
+        }
+
+        .gal-item:nth-child(6) {
+            animation-delay: .27s;
+        }
+
+        .gal-item:nth-child(n+7) {
+            animation-delay: .3s;
+        }
+
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gal-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-6px);
+            border-color: var(--gold);
+        }
+
+        .gal-media {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--ivory-deep);
+        }
+
+        .gal-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .7s cubic-bezier(.2, .7, .3, 1);
+        }
+
+        .gal-item:hover .gal-media img {
+            transform: scale(1.08);
+        }
+
+        /* signature: loupe-frame corner brackets that draw in on hover, echoing "A Closer Look" */
+        .loupe-corner {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid var(--gold-light);
+            opacity: 0;
+            transition: opacity .35s ease, width .35s ease, height .35s ease;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .loupe-corner.tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .loupe-corner.tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .loupe-corner.bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .loupe-corner.br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .gal-item:hover .loupe-corner {
+            opacity: 1;
+            width: 28px;
+            height: 28px;
+        }
+
+        .gal-view-cue {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(62, 16, 17, 0);
+            opacity: 0;
+            transition: opacity .3s ease, background .3s ease;
+            z-index: 2;
+        }
+
+        .gal-view-cue span {
+            font-family: 'Poppins', sans-serif;
+            font-size: .68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--ivory);
+            border: 1px solid rgba(252, 249, 245, .7);
+            border-radius: 30px;
+            padding: .45rem 1.1rem;
+            transform: translateY(8px);
+            transition: transform .3s ease;
+        }
+
+        .gal-item:hover .gal-view-cue {
+            opacity: 1;
+            background: rgba(62, 16, 17, .32);
+        }
+
+        .gal-item:hover .gal-view-cue span {
+            transform: translateY(0);
+        }
+
+        .photo-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(62, 16, 17, .65);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: .66rem;
+            padding: .32rem .68rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 4;
+        }
+
+        .cat-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(252, 249, 245, 0.95);
+            backdrop-filter: blur(4px);
+            color: var(--maroon-deep);
+            font-family: 'Poppins', sans-serif;
+            font-size: .6rem;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: .35rem .75rem;
+            border-radius: 4px;
+            z-index: 4;
+            border: 1px solid rgba(197, 160, 89, 0.15);
+        }
+
+        .gal-caption {
+            padding: 1rem 1.1rem 1.15rem;
+        }
+
+        .gal-caption .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.18rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .gal-item:hover .gal-caption .name {
+            color: var(--maroon);
+        }
+
+        .gal-caption .price {
+            font-family: 'Poppins', sans-serif;
+            font-size: .82rem;
+            color: var(--maroon);
+            font-weight: 500;
+            margin-top: .3rem;
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 4rem 1rem;
+            color: #8a8078;
+        }
+
+        /* ---------- Pagination ---------- */
+        .pagination-wrap {
+            display: flex;
+            justify-content: center;
+            gap: .4rem;
+            padding: 1.5rem 0 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--charcoal);
+            font-family: 'Poppins', sans-serif;
+            font-size: .82rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn.active {
+            background: var(--maroon-deep);
+            border-color: var(--maroon-deep);
+            color: var(--ivory);
+            box-shadow: 0 4px 10px rgba(62, 16, 17, 0.15);
+        }
+
+        .page-btn:hover:not(.active):not(:disabled) {
+            border-color: var(--gold);
+            color: var(--maroon);
+        }
+
+        .page-btn:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+        .page-btn.nav-arrow {
+            border-radius: 30px;
+            width: auto;
+            padding: 0 1.1rem;
+        }
+
+        /* ---------- Lightbox ---------- */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 15, 14, .92);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox-stage {
+            max-width: 920px;
+            width: 92%;
+            text-align: center;
+        }
+
+        .lightbox-frame {
+            position: relative;
+            display: inline-block;
+            line-height: 0;
+            max-width: 100%;
+        }
+
+        .lightbox-frame::before,
+        .lightbox-frame::after {
+            content: "";
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid var(--gold-light);
+        }
+
+        .lightbox-frame::before {
+            top: -10px;
+            left: -10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .lightbox-frame::after {
+            bottom: -10px;
+            right: -10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .lightbox-stage img {
+            display: block;
+            max-width: 100%;
+            max-height: 68vh;
+            object-fit: contain;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, .6);
+            border-radius: 4px;
+        }
+
+        .lightbox-caption {
+            color: var(--ivory);
+            margin-top: 1.4rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .lightbox-sub {
+            color: var(--gold-light);
+            font-family: 'Poppins', sans-serif;
+            font-size: .78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: .3rem;
+            font-weight: 500;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 22px;
+            right: 26px;
+            background: transparent;
+            border: none;
+            color: var(--ivory);
+            font-size: 2.2rem;
+            line-height: 1;
+            z-index: 1001;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: var(--gold-light);
+            transform: scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(252, 249, 245, .08);
+            border: 1px solid rgba(252, 249, 245, .2);
+            color: var(--ivory);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--maroon-deep);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+        }
+
+        .lightbox-prev {
+            left: 18px;
+        }
+
+        .lightbox-next {
+            right: 18px;
+        }
+
+        .lightbox-thumbs {
+            display: flex;
+            gap: .5rem;
+            justify-content: center;
+            margin-top: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        .lightbox-thumbs img {
+            width: 46px;
+            height: 46px;
+            object-fit: cover;
+            border: 1.5px solid rgba(252, 249, 245, .3);
+            border-radius: 4px;
+            opacity: .55;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .lightbox-thumbs img.active {
+            opacity: 1;
+            border-color: var(--gold-light);
+            transform: scale(1.05);
+        }
+
+        .lightbox-thumbs img:hover {
+            opacity: 1;
+        }
+
+        .lightbox-count {
+            position: absolute;
+            top: 26px;
+            left: 26px;
+            color: rgba(252, 249, 245, .7);
+            font-family: 'Poppins', sans-serif;
+            font-size: .75rem;
+            letter-spacing: 1px;
+        }
+
+        .lightbox-enquire {
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            background: #25D366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: .7rem 1.6rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: .8rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+            transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+        }
+
+        .lightbox-enquire:hover {
+            background: #1DA851;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+        }
+
+        .float-whatsapp {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.6rem;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            z-index: 50;
+            transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow .3s ease;
+        }
+
+        .float-whatsapp:hover {
+            color: #fff;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+        }
+
+        footer {
+            background: var(--maroon-deep);
+            color: rgba(252, 249, 245, .75);
+            padding: 2.5rem 0;
+            text-align: center;
+            font-size: .85rem;
+            border-top: 1px solid var(--line);
+        }
+
+        footer a {
+            color: var(--gold-light);
+            text-decoration: none;
+            transition: color .2s ease;
+        }
+
+        footer a:hover {
+            color: var(--gold);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .gal-item,
+            .gal-media img,
+            .gal-view-cue,
+            .gal-view-cue span,
+            .loupe-corner {
+                transition: none !important;
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============ TOP BAR ============ -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <a class="brand-mark" href="#">
+                <span class="brand-main">Oxidise</span>
+                <span class="brand-sub">Jewellery</span>
+            </a>
+            <a href="https://wa.me/918140001917?text=Hi%20Oxidise%2C%20I%27d%20like%20to%20know%20more%20about%20your%20jewellery"
+                target="_blank" class="btn btn-whatsapp-nav">
+                <i class="bi bi-whatsapp me-1"></i> Chat with us
+            </a>
+        </div>
+    </div>
+
+    <!-- ============ PAGE HEAD ============ -->
+    <div class="page-head">
+        <p class="eyebrow mb-2">A Closer Look</p>
+        <h1>Photo Gallery</h1>
+        <p>Tap any piece to open the full gallery and browse every angle we've photographed.</p>
+    </div>
+    <div class="thread"></div>
+
+    <!-- ============ STICKY FILTER + SEARCH ============ -->
+    <div class="controls-bar">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div class="chip-row" id="chipRow"></div>
+                <div class="search-shell">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" class="search-exo" placeholder="Search a piece…">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ GALLERY GRID ============ -->
+    <div class="container gallery-wrap">
+        <div class="result-count" id="resultCount"></div>
+        <div class="row g-4" id="galleryGrid"></div>
+        <div class="empty-state" id="emptyState">
+            <i class="bi bi-gem" style="font-size:2rem;color:var(--gold);"></i>
+            <p class="mt-3 mb-0">No pieces match your search.</p>
+        </div>
+        <div class="pagination-wrap" id="paginationWrap"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            Oxidise Jewellery &nbsp;·&nbsp; Ahmedabad, Gujarat &nbsp;·&nbsp;
+            <a href="tel:+918140001917">+91 81400 01917</a>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/918140001917" target="_blank" class="float-whatsapp" aria-label="Chat on WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-count" id="lbCount">1 / 1</span>
+        <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous photo"><i
+                class="bi bi-chevron-left"></i></button>
+        <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next photo"><i
+                class="bi bi-chevron-right"></i></button>
+
+        <div class="lightbox-stage">
+            <div class="lightbox-frame">
+                <img id="lbImage" src="" alt="">
+            </div>
+            <div class="lightbox-caption" id="lbName"></div>
+            <div class="lightbox-sub" id="lbPrice"></div>
+            <div class="lightbox-thumbs" id="lbThumbs"></div>
+            <a href="#" id="lbEnquire" target="_blank" class="lightbox-enquire">
+                <i class="bi bi-whatsapp"></i> Enquire on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // GALLERY DATA
+        // Add a `category` to every product so the filter chips work —
+        // use whatever collection names you actually sell under
+        // (Earrings, Necklace Sets, Bangles, Rings, Anklets, etc.)
+        // ============================================================
+        const WHATSAPP_NUMBER = "918140001917"; // used everywhere on this page
+
+        const GALLERY_ITEMS = [
+            {
+                id: 1, name: "Mayurika Oxidised Dangles", category: "Earrings", price: 59, images: [
+                    "images/pc-1.png", "images/pc-1.1.png", "images/pc-1.2.png"]
+            },
+            {
+                id: 2, name: "Aura Bow Charm Studs", category: "Earrings", price: 59, images: [
+                    "images/pc-2.png", "images/pc-2.1.png", "images/pc-2.2.png"]
+            },
+            {
+                id: 3, name: "The Vintage Jhumka Cascade", category: "Earrings", price: 59, images: [
+                    "images/pc-3.png", "images/pc-3.1.png", "images/pc-3.2.png"]
+            },
+            {
+                id: 4, name: "Mayuri Heritage Jhumkas", category: "Earrings", price: 59, images: [
+                    "images/pc-4.png", "images/pc-4.1.png", "images/pc-4.2.png"]
+            },
+            {
+                id: 5, name: "Ruby Lattice Jhumkas", category: "Earrings", price: 59, images: [
+                    "images/pc-5.png", "images/pc-5.1.png", "images/pc-5.2.png"]
+            },
+            {
+                id: 6, name: "The Gilded Aviary Earrings", category: "Earrings", price: 59, images: [
+                    "images/pc-6.png", "images/pc-6.1.png", "images/pc-6.2.png"]
+            },
+            {
+                id: 7, name: "The Royal Mayura Jhumkas", category: "Earrings", price: 59, images: [
+                    "images/pc-7.png", "images/pc-7.1.png", "images/pc-7.2.png"]
+            },
+            {
+                id: 8, name: "Pearl Whispers & Silver Chains", category: "Earrings", price: 59, images: [
+                    "images/pc-8.png", "images/pc-8.1.png", "images/pc-8.2.png"]
+            },
+            {
+                id: 9, name: "Vintage Crown & Bird Jhumkas", category: "Earrings", price: 59, images: [
+                    "images/pc-9.png", "images/pc-9.1.png", "images/pc-9.2.png"]
+            },
+            {
+                id: 10, name: "The Botanical Vine Jhumkas", category: "Earrings", price: 59, images: [
+                    "images/pc-10.1.png", "images/pc-10.png", "images/pc-10.2.png"]
+            },
+            {
+                id: 11, name: "Feathered Heritage Bell Drops", category: "Earrings", price: 59, images: [
+                    "images/pc-11.1.png", "images/pc-11.png", "images/pc-11.2.png"]
+            },
+            {
+                id: 12, name: "Combo Earring", category: "Combo Earrings", price: 199, images: [
+                    "images/pc-12.webp"]
+            }
+        ];
+
+        function formatPrice(n) { return "₹" + n.toLocaleString("en-IN"); }
+
+        // ---------- State ----------
+        const PAGE_SIZE = 15;
+        let activeCategory = "All";
+        let searchTerm = "";
+        let currentPage = 1;
+
+        // ---------- DOM refs ----------
+        const chipRow = document.getElementById("chipRow");
+        const searchInput = document.getElementById("searchInput");
+        const galleryGrid = document.getElementById("galleryGrid");
+        const resultCount = document.getElementById("resultCount");
+        const emptyState = document.getElementById("emptyState");
+        const paginationWrap = document.getElementById("paginationWrap");
+
+        // ---------- Category chips ----------
+        function getCategories() {
+            return [...new Set(GALLERY_ITEMS.map(i => i.category))];
+        }
+
+        function renderChips() {
+            const cats = ["All", ...getCategories()];
+            chipRow.innerHTML = cats.map(cat => `
+                <button class="chip ${cat === activeCategory ? "active" : ""}" data-cat="${cat}">${cat}</button>
+            `).join("");
+
+            chipRow.querySelectorAll(".chip").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    activeCategory = btn.dataset.cat;
+                    currentPage = 1;
+                    renderChips();
+                    renderGallery();
+                });
+            });
+        }
+
+        // ---------- Filtering ----------
+        function getFiltered() {
+            return GALLERY_ITEMS.filter(item => {
+                const matchesCat = activeCategory === "All" || item.category === activeCategory;
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+        }
+
+        // ---------- Card markup ----------
+        function cardTemplate(item) {
+            return `
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="gal-item" data-id="${item.id}">
+                    <div class="gal-media">
+                        <span class="cat-badge">${item.category}</span>
+                        <span class="photo-badge"><i class="bi bi-images"></i> ${item.images.length}</span>
+                        <img src="${item.images[0]}" alt="${item.name}" loading="lazy">
+                        <span class="loupe-corner tl"></span>
+                        <span class="loupe-corner tr"></span>
+                        <span class="loupe-corner bl"></span>
+                        <span class="loupe-corner br"></span>
+                        <div class="gal-view-cue"><span>View gallery</span></div>
+                    </div>
+                    <div class="gal-caption">
+                        <div class="name">${item.name}</div>
+                        <div class="price">${formatPrice(item.price)}</div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // ---------- Pagination controls ----------
+        function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+            if (totalPages <= 1) { paginationWrap.innerHTML = ""; return; }
+
+            let html = `<button class="page-btn nav-arrow" id="pgPrev" ${currentPage === 1 ? "disabled" : ""}><i class="bi bi-chevron-left"></i></button>`;
+
+            for (let p = 1; p <= totalPages; p++) {
+                html += `<button class="page-btn ${p === currentPage ? "active" : ""}" data-page="${p}">${p}</button>`;
+            }
+
+            html += `<button class="page-btn nav-arrow" id="pgNext" ${currentPage === totalPages ? "disabled" : ""}><i class="bi bi-chevron-right"></i></button>`;
+
+            paginationWrap.innerHTML = html;
+
+            paginationWrap.querySelectorAll("[data-page]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    currentPage = Number(btn.dataset.page);
+                    renderGallery();
+                    window.scrollTo({ top: document.querySelector(".controls-bar").offsetTop, behavior: "smooth" });
+                });
+            });
+            const prevBtn = document.getElementById("pgPrev");
+            const nextBtn = document.getElementById("pgNext");
+            if (prevBtn) prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) { currentPage--; renderGallery(); }
+            });
+            if (nextBtn) nextBtn.addEventListener("click", () => {
+                if (currentPage < totalPages) { currentPage++; renderGallery(); }
+            });
+        }
+
+        // ---------- Render gallery (grid + pagination) ----------
+        function renderGallery() {
+            const filtered = getFiltered();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+            galleryGrid.innerHTML = pageItems.map(cardTemplate).join("");
+
+            resultCount.textContent = filtered.length === 0
+                ? ""
+                : `Showing ${start + 1}–${start + pageItems.length} of ${filtered.length} pieces`;
+
+            emptyState.style.display = filtered.length === 0 ? "block" : "none";
+
+            galleryGrid.querySelectorAll(".gal-item").forEach(el => {
+                el.addEventListener("click", () => openLightbox(Number(el.dataset.id)));
+            });
+
+            renderPagination(filtered.length);
+            rebuildFlatPhotos(filtered);
+        }
+
+        // ---------- Lightbox (browses every photo across the current filter/search, not just the page shown) ----------
+        let FLAT_PHOTOS = [];
+        let currentIndex = 0;
+
+        function rebuildFlatPhotos(filteredItems) {
+            FLAT_PHOTOS = [];
+            filteredItems.forEach(item => {
+                item.images.forEach((src, idx) => {
+                    FLAT_PHOTOS.push({ src, item, photoIndex: idx });
+                });
+            });
+        }
+
+        const lightbox = document.getElementById("lightbox");
+        const lbImage = document.getElementById("lbImage");
+        const lbName = document.getElementById("lbName");
+        const lbPrice = document.getElementById("lbPrice");
+        const lbCount = document.getElementById("lbCount");
+        const lbThumbs = document.getElementById("lbThumbs");
+        const lbEnquire = document.getElementById("lbEnquire");
+
+        function renderLightbox() {
+            const photo = FLAT_PHOTOS[currentIndex];
+            if (!photo) return;
+            lbImage.src = photo.src;
+            lbImage.alt = photo.item.name;
+            lbName.textContent = photo.item.name;
+            lbPrice.textContent = formatPrice(photo.item.price);
+            lbCount.textContent = `${currentIndex + 1} / ${FLAT_PHOTOS.length}`;
+
+            if (photo.item.images.length > 1) {
+                lbThumbs.innerHTML = photo.item.images.map((src, i) => `
+                    <img src="${src}" class="${i === photo.photoIndex ? "active" : ""}" data-thumb-idx="${i}" alt="">
+                `).join("");
+                lbThumbs.querySelectorAll("img").forEach(thumb => {
+                    thumb.addEventListener("click", () => {
+                        const targetIdx = FLAT_PHOTOS.findIndex(p => p.item.id === photo.item.id && p.photoIndex === Number(thumb.dataset.thumbIdx));
+                        if (targetIdx >= 0) { currentIndex = targetIdx; renderLightbox(); }
+                    });
+                });
+            } else {
+                lbThumbs.innerHTML = "";
+            }
+
+            const message = encodeURIComponent(`Hi Oxidise, I'm interested in ${photo.item.name} — ${formatPrice(photo.item.price)}. Is it available?`);
+            lbEnquire.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+        }
+
+        function openLightbox(itemId) {
+            const idx = FLAT_PHOTOS.findIndex(p => p.item.id === itemId);
+            currentIndex = idx >= 0 ? idx : 0;
+            renderLightbox();
+            lightbox.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % FLAT_PHOTOS.length;
+            renderLightbox();
+        }
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + FLAT_PHOTOS.length) % FLAT_PHOTOS.length;
+            renderLightbox();
+        }
+
+        document.getElementById("lbClose").addEventListener("click", closeLightbox);
+        document.getElementById("lbNext").addEventListener("click", showNext);
+        document.getElementById("lbPrev").addEventListener("click", showPrev);
+
+        lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+
+        document.addEventListener("keydown", (e) => {
+            if (!lightbox.classList.contains("open")) return;
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowRight") showNext();
+            if (e.key === "ArrowLeft") showPrev();
+        });
+
+        // ---------- Search ----------
+        searchInput.addEventListener("input", (e) => {
+            searchTerm = e.target.value;
+            currentPage = 1;
+            renderGallery();
+        });
+
+        // ---------- Init ----------
+        renderChips();
+        renderGallery();
+    </script>
+</body>
+
+</html>
