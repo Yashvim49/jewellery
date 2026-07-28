@@ -25,6 +25,8 @@
             --charcoal: #2B2625;
             --line: rgba(62, 16, 17, 0.08);
             --shadow: 0 16px 36px rgba(62, 16, 17, 0.08);
+            --thread: #6E2426;
+            --thread-deep: #4A1315;
         }
 
         * {
@@ -174,6 +176,303 @@
             right: calc(15% - 3px);
         }
 
+        /* ============================================================
+           SIGNATURE PIECE — hero showcase for the flagship product
+           Motif: the braided maroon cord from the piece itself becomes
+           a running border device that frames the whole section.
+        ============================================================ */
+        .signature-section {
+            position: relative;
+            max-width: 1180px;
+            margin: 0 auto 3.2rem;
+            padding: 0 1.5rem;
+        }
+
+        .signature-panel {
+            position: relative;
+            background: linear-gradient(180deg, #ffffff 0%, var(--ivory-deep) 100%);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(62, 16, 17, 0.12);
+            border: 1px solid var(--line);
+        }
+
+        /* braided cord edge — top */
+        .signature-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(115deg,
+                    var(--thread) 0px, var(--thread) 7px,
+                    var(--thread-deep) 7px, var(--thread-deep) 14px);
+            z-index: 3;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            min-height: 520px;
+        }
+
+        .signature-media {
+            position: relative;
+            background: radial-gradient(ellipse at 50% 20%, #efe6db 0%, #e6dacb 60%, #ded0bd 100%);
+            overflow: hidden;
+        }
+
+        /* faint concentric loupe rings behind the pendant, nodding to "A Closer Look" */
+        .signature-media::before {
+            content: "";
+            position: absolute;
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            border: 1px solid rgba(92, 26, 27, 0.07);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .signature-media::after {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            border: 1px solid rgba(92, 26, 27, 0.09);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .signature-media-frame {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            max-width: 100%;
+        }
+
+        .signature-media-frame img,
+        .signature-media-frame video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            transition: transform .7s cubic-bezier(.2, .7, .3, 1);
+        }
+
+        .signature-panel:hover .signature-media-frame img,
+        .signature-panel:hover .signature-media-frame video {
+            transform: scale(1.035) rotate(-0.4deg);
+        }
+
+        .sig-loupe-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 1.5px solid var(--gold);
+            opacity: .8;
+            z-index: 4;
+        }
+
+        .sig-loupe-corner.tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }
+        .sig-loupe-corner.br { bottom: 22px; right: 22px; border-left: none; border-top: none; }
+
+        .signature-ribbon {
+            position: absolute;
+            top: 22px;
+            right: -1px;
+            background: var(--maroon-deep);
+            color: var(--gold-light);
+            font-family: 'Poppins', sans-serif;
+            font-size: .68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: .5rem 1.2rem .5rem 1rem;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            box-shadow: -4px 4px 12px rgba(62, 16, 17, 0.2);
+        }
+
+        .signature-ribbon i { color: var(--gold); font-size: .8rem; }
+
+        .signature-content {
+            padding: 3.2rem 3.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .signature-content .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .signature-content .eyebrow::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .signature-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: clamp(2rem, 3vw, 2.65rem);
+            color: var(--maroon-deep);
+            line-height: 1.12;
+            margin: .7rem 0 .9rem;
+        }
+
+        .signature-title em {
+            font-family: 'Great Vibes', cursive;
+            font-style: normal;
+            font-weight: 400;
+            color: var(--gold);
+            font-size: 1.25em;
+            margin-right: .12em;
+        }
+
+        .signature-desc {
+            color: #5c5450;
+            font-size: .98rem;
+            line-height: 1.75;
+            max-width: 440px;
+            margin-bottom: 1.5rem;
+        }
+
+        .signature-facts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .55rem;
+            margin-bottom: 1.7rem;
+        }
+
+        .signature-facts span {
+            font-family: 'Poppins', sans-serif;
+            font-size: .68rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--maroon);
+            border: 1px solid rgba(92, 26, 27, 0.18);
+            background: var(--gold-wash);
+            padding: .4rem .85rem;
+            border-radius: 20px;
+        }
+
+        .signature-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: .7rem;
+            margin-bottom: 1.9rem;
+        }
+
+        .signature-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 2rem;
+            color: var(--maroon);
+        }
+
+        .signature-price-note {
+            font-family: 'Poppins', sans-serif;
+            font-size: .72rem;
+            letter-spacing: .5px;
+            color: #9a8f86;
+        }
+
+        .signature-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .9rem;
+        }
+
+        .btn-sig-enquire {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: #25D366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: .85rem 1.7rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: .8rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+            transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+        }
+
+        .btn-sig-enquire:hover {
+            background: #1DA851;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(37, 211, 102, 0.32);
+        }
+
+        .btn-sig-view {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: transparent;
+            color: var(--maroon-deep);
+            border: 1px solid rgba(92, 26, 27, 0.3);
+            border-radius: 4px;
+            padding: .85rem 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: .8rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+
+        .btn-sig-view:hover {
+            background: var(--maroon-deep);
+            border-color: var(--maroon-deep);
+            color: var(--ivory);
+        }
+
+        /* braided cord edge — bottom */
+        .signature-panel::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(115deg,
+                    var(--thread) 0px, var(--thread) 7px,
+                    var(--thread-deep) 7px, var(--thread-deep) 14px);
+            z-index: 3;
+        }
+
+        @media (max-width: 860px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+            .signature-media {
+                height: 340px;
+            }
+            .signature-content {
+                padding: 2rem 1.8rem 2.6rem;
+            }
+            .signature-desc {
+                max-width: 100%;
+            }
+        }
+
         /* ---------- Sticky controls ---------- */
         .controls-bar {
             position: sticky;
@@ -278,6 +577,11 @@
             transform: translateY(14px);
             animation: rise .55s ease forwards;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gal-item.is-signature {
+            border-color: var(--gold);
+            box-shadow: 0 8px 24px rgba(197, 160, 89, 0.18);
         }
 
         .gal-item:nth-child(1) {
@@ -778,7 +1082,9 @@
             .gal-media img,
             .gal-view-cue,
             .gal-view-cue span,
-            .loupe-corner {
+            .loupe-corner,
+            .signature-media-frame img,
+            .signature-media-frame video {
                 transition: none !important;
                 animation: none !important;
                 opacity: 1 !important;
@@ -816,6 +1122,51 @@
         <p>Tap any piece to open the full gallery and browse every angle we've photographed.</p>
     </div>
     <div class="thread"></div>
+
+    <!-- ============ SIGNATURE PIECE ============ -->
+    <div class="signature-section">
+        <div class="signature-panel" id="signaturePanel">
+            <div class="signature-ribbon"><i class="bi bi-stars"></i> Signature Piece</div>
+            <div class="signature-grid">
+                <div class="signature-media">
+                    <span class="sig-loupe-corner tl"></span>
+                    <span class="sig-loupe-corner br"></span>
+                    <div class="signature-media-frame">
+                        <video
+                            src="images/m-1.1.mp4"
+                            poster="images/m1.png"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            aria-label="Gajraj oxidised elephant pendant necklace on a braided maroon thread cord">
+                            Your browser doesn't support embedded video.
+                        </video>
+                    </div>
+                </div>
+                <div class="signature-content">
+                    <h2 class="signature-title"><em>The</em>Gajraj Thread Necklace</h2>
+                    <p class="signature-desc">
+                        Hand-braided maroon thread meets a bold oxidised silver elephant charm —
+                        our most-loved design, worn as a statement on its own or layered over
+                        a plain kurta. Adjustable knot closure, so one size sits right on everyone.
+                    </p>
+                    <div class="signature-facts">
+                        <span><i class="bi bi-arrows-angle-expand"></i> Adjustable Thread</span>
+                        <span><i class="bi bi-hand-index-thumb"></i> Handcrafted</span>
+                    </div>
+
+                    <div class="signature-cta-row">
+
+                        <button type="button" class="btn-sig-view" id="signatureViewBtn">
+                            <i class="bi bi-eye"></i> View Full Gallery
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ============ STICKY FILTER + SEARCH ============ -->
     <div class="controls-bar">
@@ -882,6 +1233,7 @@
         // (Earrings, Necklace Sets, Bangles, Rings, Anklets, etc.)
         // ============================================================
         const WHATSAPP_NUMBER = "918140001917"; // used everywhere on this page
+        const SIGNATURE_ITEM_ID = 13; // the piece featured in the hero section above
 
         const GALLERY_ITEMS = [
             {
@@ -889,7 +1241,7 @@
                     "images/pc-1.png", "images/pc-1.1.png", "images/pc-1.2.png"]
             },
             {
-                id: 2, name: "Aura Bow Charm Studs", category: "Earrings", price: 59, images: [
+                id: 2, name: "Aura Bow Charm Studs", category: "Earrings", price: 39, images: [
                     "images/pc-2.png", "images/pc-2.1.png", "images/pc-2.2.png"]
             },
             {
@@ -931,6 +1283,10 @@
             {
                 id: 12, name: "Combo Earring", category: "Combo Earrings", price: 199, images: [
                     "images/pc-12.webp"]
+            },
+            {
+                id: 13, name: "The Gajraj Thread Necklace", category: "Necklaces", price: 199, images: [
+                    "images/m1.png", "images/m1.2.png"]
             }
         ];
 
@@ -982,9 +1338,10 @@
 
         // ---------- Card markup ----------
         function cardTemplate(item) {
+            const isSig = item.id === SIGNATURE_ITEM_ID;
             return `
             <div class="col-6 col-md-4 col-lg-3">
-                <div class="gal-item" data-id="${item.id}">
+                <div class="gal-item ${isSig ? "is-signature" : ""}" data-id="${item.id}">
                     <div class="gal-media">
                         <span class="cat-badge">${item.category}</span>
                         <span class="photo-badge"><i class="bi bi-images"></i> ${item.images.length}</span>
@@ -1141,6 +1498,11 @@
             if (e.key === "Escape") closeLightbox();
             if (e.key === "ArrowRight") showNext();
             if (e.key === "ArrowLeft") showPrev();
+        });
+
+        // ---------- Signature panel "View Full Gallery" ----------
+        document.getElementById("signatureViewBtn").addEventListener("click", () => {
+            openLightbox(SIGNATURE_ITEM_ID);
         });
 
         // ---------- Search ----------
