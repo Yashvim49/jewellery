@@ -198,18 +198,7 @@
         }
 
         /* braided cord edge — top */
-        .signature-panel::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: repeating-linear-gradient(115deg,
-                    var(--thread) 0px, var(--thread) 7px,
-                    var(--thread-deep) 7px, var(--thread-deep) 14px);
-            z-index: 3;
-        }
+        
 
         .signature-grid {
             display: grid;
@@ -444,19 +433,7 @@
             color: var(--ivory);
         }
 
-        /* braided cord edge — bottom */
-        .signature-panel::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: repeating-linear-gradient(115deg,
-                    var(--thread) 0px, var(--thread) 7px,
-                    var(--thread-deep) 7px, var(--thread-deep) 14px);
-            z-index: 3;
-        }
+       
 
         @media (max-width: 860px) {
             .signature-grid {
