@@ -561,6 +561,64 @@
             box-shadow: 0 8px 24px rgba(197, 160, 89, 0.18);
         }
 
+        /* ---------- Premium heavy earrings ---------- */
+        .gal-item.is-premium {
+            border: 1.5px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.28);
+            background: linear-gradient(180deg, #ffffff 0%, var(--ivory-deep) 100%);
+        }
+
+        .gal-item.is-premium:hover {
+            box-shadow: 0 16px 40px rgba(197, 160, 89, 0.38);
+        }
+
+        .gal-item.is-premium .gal-media {
+            aspect-ratio: 1/1;
+        }
+
+        .gal-item.is-premium .loupe-corner {
+            opacity: .55;
+            border-color: var(--gold);
+        }
+
+        .gal-item.is-premium:hover .loupe-corner {
+            opacity: 1;
+        }
+
+        .gal-item.is-premium .gal-caption .name {
+            font-size: 1.3rem;
+        }
+
+        .gal-item.is-premium .gal-caption .price {
+            font-size: .92rem;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--maroon-deep), var(--maroon));
+            color: var(--gold-light);
+            font-family: 'Poppins', sans-serif;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            padding: .38rem .8rem;
+            border-radius: 4px;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(197, 160, 89, .5);
+            box-shadow: 0 4px 10px rgba(62, 16, 17, 0.2);
+        }
+
+        .premium-badge i {
+            color: var(--gold);
+            font-size: .68rem;
+        }
+
         .gal-item:nth-child(1) {
             animation-delay: .02s;
         }
@@ -1211,12 +1269,68 @@
         // ============================================================
         const WHATSAPP_NUMBER = "918140001917"; // used everywhere on this page
         const SIGNATURE_ITEM_ID = 13; // the piece featured in the hero section above
+        const PREMIUM_CATEGORY = "Premium Heavy Earrings"; // gets the gold "Premium" treatment in the grid
 
         const GALLERY_ITEMS = [
+            // ============================================================
+            // 28 JULY DROP — shown first in the grid
+            // ============================================================
+            // ---------- Premium heavy jhumkas (the 3 statement pieces) ----------
             {
-                id: 1, name: "Mayurika Oxidised Dangles", category: "Earrings", price: 59, images: [
-                    "images/pc-1.png", "images/pc-1.1.png", "images/pc-1.2.png"]
+                id: 101, name: "Royal Teal Meena Jhumkas", category: PREMIUM_CATEGORY, price: 329, images: [
+                    "images/28-july/28-1.png", "images/28-july/28-1.1.png", "images/28-july/28-1.2.png"]
             },
+            {
+                id: 102, name: "Emerald Bloom Heavy Danglers", category: PREMIUM_CATEGORY, price: 329, images: [
+                    "images/28-july/28-2.1.png", "images/28-july/28-2.png", "images/28-july/28-2.2.png"]
+            },
+            {
+                id: 103, name: "Royal Meenakari Chandbalis", category: PREMIUM_CATEGORY, price: 329, images: [
+                    "images/28-july/28-3.png", "images/28-july/28-3.1.png", "images/28-july/28-3.2.png"]
+            },
+
+            // ---------- Regular earrings (28-july) ----------
+            {
+                id: 104, name: "Silver Vine Drop Earrings", category: "Earrings", price: 49, images: [
+                    "images/28-july/28-4.png", "images/28-july/28-4.1.png"]
+            },
+            {
+                id: 105, name: "Oxidised Blossom Studs", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-5.png", "images/28-july/28-5.1.png"]
+            },
+            {
+                id: 106, name: "Traditional Bali Hoops", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-6.png", "images/28-july/28-6.1.png"]
+            },
+            {
+                id: 107, name: "Floral Ghungroo Danglers", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-7.png", "images/28-july/28-7.1.png"]
+            },
+            {
+                id: 108, name: "Antique Filigree Studs", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-8.png", "images/28-july/28-8.1.png"]
+            },
+            {
+                id: 109, name: "Silver Lotus Jhumkis", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-9.png", "images/28-july/28-9.1.png"]
+            },
+            {
+                id: 110, name: "Temple Bell Drops", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-10.png", "images/28-july/28-10.1.png"]
+            },
+            {
+                id: 111, name: "Classic Oxidised Hoops", category: "Earrings", price: 59, images: [
+                    "images/28-july/28-11.png", "images/28-july/28-11.1.png"]
+            },
+
+            // ============================================================
+            // EARLIER CATALOGUE
+            // ============================================================
+             {
+                id: 1, name: "The Gajraj Thread Necklace", category: "Necklaces", price: 199, images: [
+                    "images/m1.png", "images/m1.2.png"]
+            },
+          
             {
                 id: 2, name: "Aura Bow Charm Studs", category: "Earrings", price: 39, images: [
                     "images/pc-2.png", "images/pc-2.1.png", "images/pc-2.2.png"]
@@ -1261,16 +1375,17 @@
                 id: 12, name: "Combo Earring", category: "Combo Earrings", price: 199, images: [
                     "images/pc-12.webp"]
             },
-            {
-                id: 13, name: "The Gajraj Thread Necklace", category: "Necklaces", price: 199, images: [
-                    "images/m1.png", "images/m1.2.png"]
-            }
+             {
+                id: 13, name: "Mayurika Oxidised Dangles", category: "Earrings", price: 59, images: [
+                    "images/pc-1.png", "images/pc-1.1.png", "images/pc-1.2.png"]
+            },
+
         ];
 
         function formatPrice(n) { return "₹" + n.toLocaleString("en-IN"); }
 
         // ---------- State ----------
-        const PAGE_SIZE = 15;
+        const PAGE_SIZE = 30;
         let activeCategory = "All";
         let searchTerm = "";
         let currentPage = 1;
@@ -1316,11 +1431,14 @@
         // ---------- Card markup ----------
         function cardTemplate(item) {
             const isSig = item.id === SIGNATURE_ITEM_ID;
+            const isPremium = item.category === PREMIUM_CATEGORY;
             return `
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="gal-item ${isSig ? "is-signature" : ""}" data-id="${item.id}">
+            <div class="${isPremium ? "col-6 col-md-6 col-lg-4" : "col-6 col-md-4 col-lg-3"}">
+                <div class="gal-item ${isSig ? "is-signature" : ""} ${isPremium ? "is-premium" : ""}" data-id="${item.id}">
                     <div class="gal-media">
-                        <span class="cat-badge">${item.category}</span>
+                        ${isPremium
+                    ? `<span class="premium-badge"><i class="bi bi-gem"></i> Premium</span>`
+                    : `<span class="cat-badge">${item.category}</span>`}
                         <span class="photo-badge"><i class="bi bi-images"></i> ${item.images.length}</span>
                         <img src="${item.images[0]}" alt="${item.name}" loading="lazy">
                         <span class="loupe-corner tl"></span>
