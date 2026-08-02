@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&family=Poppins:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap"
         rel="stylesheet">
 
     <style>
@@ -124,7 +124,6 @@
             left: clamp(20px, 8vw, 120px);
             width: 1px;
             background: rgba(220, 53, 69, 0.2);
-            /* Subtle notebook margin line */
             pointer-events: none;
         }
 
@@ -177,9 +176,9 @@
         }
 
         /* ============================================================
-           SIGNATURE PIECE — hero showcase for the flagship product
-           Motif: the braided maroon cord from the piece itself becomes
-           a running border device that frames the whole section.
+           SIGNATURE PIECE — hero showcase, now a 2-slide slider that
+           auto-rotates between the Gajraj necklace and the new bangle
+           set every 2 minutes (also navigable via the dots below).
         ============================================================ */
         .signature-section {
             position: relative;
@@ -197,8 +196,28 @@
             border: 1px solid var(--line);
         }
 
-        /* braided cord edge — top */
-        
+        .signature-slides {
+            position: relative;
+        }
+
+        .signature-slide {
+            display: none;
+        }
+
+        .signature-slide.active {
+            display: block;
+            animation: sigFade .6s ease;
+        }
+
+        @keyframes sigFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
 
         .signature-grid {
             display: grid;
@@ -268,8 +287,19 @@
             z-index: 4;
         }
 
-        .sig-loupe-corner.tl { top: 22px; left: 22px; border-right: none; border-bottom: none; }
-        .sig-loupe-corner.br { bottom: 22px; right: 22px; border-left: none; border-top: none; }
+        .sig-loupe-corner.tl {
+            top: 22px;
+            left: 22px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .sig-loupe-corner.br {
+            bottom: 22px;
+            right: 22px;
+            border-left: none;
+            border-top: none;
+        }
 
         .signature-ribbon {
             position: absolute;
@@ -291,7 +321,10 @@
             box-shadow: -4px 4px 12px rgba(62, 16, 17, 0.2);
         }
 
-        .signature-ribbon i { color: var(--gold); font-size: .8rem; }
+        .signature-ribbon i {
+            color: var(--gold);
+            font-size: .8rem;
+        }
 
         .signature-content {
             padding: 3.2rem 3.4rem;
@@ -433,18 +466,51 @@
             color: var(--ivory);
         }
 
-       
+        /* ---------- Signature slider dots ---------- */
+        .signature-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            padding: 1.1rem 0 1.4rem;
+            background: linear-gradient(180deg, var(--ivory-deep) 0%, #ffffff 100%);
+            border-top: 1px solid var(--line);
+        }
+
+        .sig-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(92, 26, 27, 0.18);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all .3s ease;
+        }
+
+        .sig-dot:hover {
+            background: rgba(92, 26, 27, 0.35);
+        }
+
+        .sig-dot.active {
+            background: var(--gold);
+            width: 26px;
+            border-radius: 6px;
+        }
 
         @media (max-width: 860px) {
             .signature-grid {
                 grid-template-columns: 1fr;
             }
+
             .signature-media {
                 height: 340px;
             }
+
             .signature-content {
                 padding: 2rem 1.8rem 2.6rem;
             }
+
             .signature-desc {
                 max-width: 100%;
             }
@@ -1119,7 +1185,8 @@
             .gal-view-cue span,
             .loupe-corner,
             .signature-media-frame img,
-            .signature-media-frame video {
+            .signature-media-frame video,
+            .signature-slide {
                 transition: none !important;
                 animation: none !important;
                 opacity: 1 !important;
@@ -1158,48 +1225,17 @@
     </div>
     <div class="thread"></div>
 
-    <!-- ============ SIGNATURE PIECE ============ -->
+    <!-- ============ SIGNATURE PIECE SLIDER ============ -->
     <div class="signature-section">
         <div class="signature-panel" id="signaturePanel">
             <div class="signature-ribbon"><i class="bi bi-stars"></i> Signature Piece</div>
-            <div class="signature-grid">
-                <div class="signature-media">
-                    <span class="sig-loupe-corner tl"></span>
-                    <span class="sig-loupe-corner br"></span>
-                    <div class="signature-media-frame">
-                        <video
-                            src="images/m-1.1.mp4"
-                            poster="images/m1.png"
-                            autoplay
-                            muted
-                            loop
-                            playsinline
-                            preload="metadata"
-                            aria-label="Gajraj oxidised elephant pendant necklace on a braided maroon thread cord">
-                            Your browser doesn't support embedded video.
-                        </video>
-                    </div>
-                </div>
-                <div class="signature-content">
-                    <h2 class="signature-title"><em>The</em>Gajraj Thread Necklace</h2>
-                    <p class="signature-desc">
-                        Hand-braided maroon thread meets a bold oxidised silver elephant charm —
-                        our most-loved design, worn as a statement on its own or layered over
-                        a plain kurta. Adjustable knot closure, so one size sits right on everyone.
-                    </p>
-                    <div class="signature-facts">
-                        <span><i class="bi bi-arrows-angle-expand"></i> Adjustable Thread</span>
-                        <span><i class="bi bi-hand-index-thumb"></i> Handcrafted</span>
-                    </div>
 
-                    <div class="signature-cta-row">
+            <!-- Slides are rendered from the SIGNATURE_SLIDES array below —
+                 to add another slide later, just add an entry to that array. -->
+            <div class="signature-slides" id="signatureSlides"></div>
 
-                        <button type="button" class="btn-sig-view" id="signatureViewBtn">
-                            <i class="bi bi-eye"></i> View Full Gallery
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <!-- Slider dots: auto-advances every 10 seconds, or tap to jump -->
+            <div class="signature-dots" id="signatureDots"></div>
         </div>
     </div>
 
@@ -1271,6 +1307,50 @@
         const SIGNATURE_ITEM_ID = 13; // the piece featured in the hero section above
         const PREMIUM_CATEGORY = "Premium Heavy Earrings"; // gets the gold "Premium" treatment in the grid
 
+        // ============================================================
+        // SIGNATURE SLIDER — hero panel at the top of the page.
+        // To add another slide, just add another object here — the
+        // slider, dots, and auto-advance all pick it up automatically.
+        // `viewId` should match an `id` in GALLERY_ITEMS so the
+        // "View Full Gallery" button opens the right lightbox photos.
+        // `media.type` is "video" or "image".
+        // ============================================================
+        const SIGNATURE_SLIDES = [
+            {
+                viewId: 14,
+                eyebrow: "New Arrival",
+                titleLead: "The",
+                titleMain: "Purple Meenakari Bangle Set",
+                desc: "A stack of five thread-wrapped bangles in rich purple and ivory, finished with oxidised silver ghungroo charms and mirror-work accents. Wear the full stack for a bold look, or mix pieces into your everyday rotation.",
+                facts: [
+                    { icon: "bi-gem", label: "Set of 5" },
+                    { icon: "bi-hand-index-thumb", label: "Handcrafted" }
+                ],
+                media: {
+                    type: "image",
+                    src: "images/bangles/b1.png",
+                    alt: "Purple Meenakari oxidised bangle set stacked on wrist"
+                }
+            },
+            {
+                viewId: 13,
+                eyebrow: "Best Seller",
+                titleLead: "The",
+                titleMain: "Gajraj Thread Necklace",
+                desc: "Hand-braided maroon thread meets a bold oxidised silver elephant charm — our most-loved design, worn as a statement on its own or layered over a plain kurta. Adjustable knot closure, so one size sits right on everyone.",
+                facts: [
+                    { icon: "bi-arrows-angle-expand", label: "Adjustable Thread" },
+                    { icon: "bi-hand-index-thumb", label: "Handcrafted" }
+                ],
+                media: {
+                    type: "video",
+                    src: "images/m-1.1.mp4",
+                    poster: "images/m1.png",
+                    alt: "Gajraj oxidised elephant pendant necklace on a braided maroon thread cord"
+                }
+            }
+        ];
+
         const GALLERY_ITEMS = [
             // ============================================================
             // 28 JULY DROP — shown first in the grid
@@ -1290,6 +1370,11 @@
             },
 
             // ---------- Regular earrings (28-july) ----------
+            // ---------- New: Bangle set featured in the signature slider ----------
+            {
+                id: 14, name: "Purple Meenakari Bangle Set", category: "Bangles", price: 399, images: [
+                    "images/bangles/b1.png", "images/bangles/b1.1.png"]
+            },
             {
                 id: 104, name: "Silver Vine Drop Earrings", category: "Earrings", price: 49, images: [
                     "images/28-july/28-4.png", "images/28-july/28-4.1.png"]
@@ -1326,11 +1411,11 @@
             // ============================================================
             // EARLIER CATALOGUE
             // ============================================================
-             {
+            {
                 id: 1, name: "The Gajraj Thread Necklace", category: "Necklaces", price: 199, images: [
                     "images/m1.png", "images/m1.2.png"]
             },
-          
+
             {
                 id: 2, name: "Aura Bow Charm Studs", category: "Earrings", price: 39, images: [
                     "images/pc-2.png", "images/pc-2.1.png", "images/pc-2.2.png"]
@@ -1375,10 +1460,12 @@
                 id: 12, name: "Combo Earring", category: "Combo Earrings", price: 199, images: [
                     "images/pc-12.webp"]
             },
-             {
+            {
                 id: 13, name: "Mayurika Oxidised Dangles", category: "Earrings", price: 59, images: [
                     "images/pc-1.png", "images/pc-1.1.png", "images/pc-1.2.png"]
             },
+
+
 
         ];
 
@@ -1595,10 +1682,90 @@
             if (e.key === "ArrowLeft") showPrev();
         });
 
-        // ---------- Signature panel "View Full Gallery" ----------
-        document.getElementById("signatureViewBtn").addEventListener("click", () => {
-            openLightbox(SIGNATURE_ITEM_ID);
-        });
+        // ---------- Signature panel slider ----------
+        // Renders every slide + dot from SIGNATURE_SLIDES above, so adding
+        // a third, fourth, etc. slide later is just adding an array entry.
+        // Auto-advances every 10 seconds and loops continuously; the dots
+        // (or swiping between them) let people jump straight to one.
+        const SIGNATURE_SLIDE_INTERVAL_MS = 10 * 1000; // 10 seconds
+        const signatureSlidesWrap = document.getElementById("signatureSlides");
+        const signatureDotsWrap = document.getElementById("signatureDots");
+        let signatureSlideIndex = 0;
+        let signatureAutoTimer = null;
+
+        function slideMediaMarkup(media) {
+            if (media.type === "video") {
+                return `<video src="${media.src}" poster="${media.poster || ""}" autoplay muted loop playsinline
+                            preload="metadata" aria-label="${media.alt}">
+                            Your browser doesn't support embedded video.
+                        </video>`;
+            }
+            return `<img src="${media.src}" alt="${media.alt}">`;
+        }
+
+        function renderSignatureSlides() {
+            signatureSlidesWrap.innerHTML = SIGNATURE_SLIDES.map((slide, i) => `
+                <div class="signature-slide ${i === 0 ? "active" : ""}" data-slide-index="${i}">
+                    <div class="signature-grid">
+                        <div class="signature-media">
+                            <span class="sig-loupe-corner tl"></span>
+                            <span class="sig-loupe-corner br"></span>
+                            <div class="signature-media-frame">
+                                ${slideMediaMarkup(slide.media)}
+                            </div>
+                        </div>
+                        <div class="signature-content">
+                            <p class="eyebrow mb-0">${slide.eyebrow}</p>
+                            <h2 class="signature-title"><em>${slide.titleLead}</em>${slide.titleMain}</h2>
+                            <p class="signature-desc">${slide.desc}</p>
+                            <div class="signature-facts">
+                                ${slide.facts.map(f => `<span><i class="bi ${f.icon}"></i> ${f.label}</span>`).join("")}
+                            </div>
+                            <div class="signature-cta-row">
+                                <button type="button" class="btn-sig-view" data-view-id="${slide.viewId}">
+                                    <i class="bi bi-eye"></i> View Full Gallery
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+
+            signatureDotsWrap.innerHTML = SIGNATURE_SLIDES.map((slide, i) => `
+                <button class="sig-dot ${i === 0 ? "active" : ""}" data-dot-index="${i}" aria-label="Show ${slide.titleMain}"></button>
+            `).join("");
+
+            // "View Full Gallery" — one button per slide, opens that piece's photos
+            signatureSlidesWrap.querySelectorAll(".btn-sig-view").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    openLightbox(Number(btn.dataset.viewId));
+                });
+            });
+
+            signatureDotsWrap.querySelectorAll(".sig-dot").forEach(dot => {
+                dot.addEventListener("click", () => {
+                    showSignatureSlide(Number(dot.dataset.dotIndex));
+                    restartSignatureAutoSlide();
+                });
+            });
+        }
+
+        function showSignatureSlide(idx) {
+            signatureSlideIndex = idx;
+            signatureSlidesWrap.querySelectorAll(".signature-slide").forEach((el, i) => el.classList.toggle("active", i === idx));
+            signatureDotsWrap.querySelectorAll(".sig-dot").forEach((el, i) => el.classList.toggle("active", i === idx));
+        }
+
+        function restartSignatureAutoSlide() {
+            if (signatureAutoTimer) clearInterval(signatureAutoTimer);
+            // Continuously loops through all slides, one after another, forever.
+            signatureAutoTimer = setInterval(() => {
+                showSignatureSlide((signatureSlideIndex + 1) % SIGNATURE_SLIDES.length);
+            }, SIGNATURE_SLIDE_INTERVAL_MS);
+        }
+
+        renderSignatureSlides();
+        restartSignatureAutoSlide();
 
         // ---------- Search ----------
         searchInput.addEventListener("input", (e) => {
