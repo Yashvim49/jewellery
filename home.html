@@ -1313,9 +1313,58 @@
         // slider, dots, and auto-advance all pick it up automatically.
         // `viewId` should match an `id` in GALLERY_ITEMS so the
         // "View Full Gallery" button opens the right lightbox photos.
-        // `media.type` is "video" or "image".
         // ============================================================
         const SIGNATURE_SLIDES = [
+            {
+                viewId: 17,
+                eyebrow: "New Arrival · Special Offer",
+                titleLead: "The",
+                titleMain: "Artisanal Wooden & Brass Bangles",
+                desc: "Handcrafted from rich mahogany wood with natural grain textures, beautifully layered with antique brass beads and gold-toned stud embellishments. Special set offer: ₹249 (Regular ₹299).",
+                facts: [
+                    { icon: "bi-tag-fill", label: "Offer ₹249 (MRP ₹299)" },
+                    { icon: "bi-tree", label: "Natural Wood" },
+                    { icon: "bi-hand-index-thumb", label: "Handcrafted" }
+                ],
+                media: {
+                    type: "image",
+                    src: "images/bangles/w1.1.png",
+                    alt: "Artisanal Wooden & Brass Studded Bangles stacked on wrist"
+                }
+            },
+            {
+                viewId: 18,
+                eyebrow: "New Arrival · Special Offer",
+                titleLead: "The",
+                titleMain: "Rustic Carved Wooden Kada Set",
+                desc: "A stacked set of sleek carved wooden bangles accented with delicate golden brass edge rims. Showcasing rich earthy wood grain tones, available at a special offer price of ₹249 (Regular ₹299).",
+                facts: [
+                    { icon: "bi-tag-fill", label: "Offer ₹249 (MRP ₹299)" },
+                    { icon: "bi-tree", label: "Natural Wood" },
+                    { icon: "bi-hand-index-thumb", label: "Handcrafted" }
+                ],
+                media: {
+                    type: "image",
+                    src: "images/bangles/w2.png",
+                    alt: "Rustic Carved Wooden Kada Stack"
+                }
+            },
+            {
+                viewId: 19,
+                eyebrow: "New Arrival",
+                titleLead: "The",
+                titleMain: "Turquoise Sunflower Thread Bangles",
+                desc: "A pair of vibrant cyan-blue thread-wrapped bangles adorned with an eye-catching handcrafted yellow sunflower motif and crimson stitched center. Soft, cheerful, and lightweight—perfect for adding a bright artisanal touch.",
+                facts: [
+                    { icon: "bi-gem", label: "Pair of 2" },
+                    { icon: "bi-hand-index-thumb", label: "Hand Embroidered" }
+                ],
+                media: {
+                    type: "image",
+                    src: "images/bangles/b4.png",
+                    alt: "Turquoise Sunflower Embroidered Thread Bangles stacked on wrist"
+                }
+            },
             {
                 viewId: 14,
                 eyebrow: "New Arrival",
@@ -1329,7 +1378,7 @@
                 media: {
                     type: "image",
                     src: "images/bangles/b1.png",
-                    alt: "Purple  bangle set stacked on wrist"
+                    alt: "Purple bangle set stacked on wrist"
                 }
             },
             {
@@ -1413,8 +1462,19 @@
                     "images/29-p/i-2.png", "images/29-p/i-2.1.png", "images/29-p/i-2.2.png"]
             },
 
-            // ---------- Regular earrings (28-july) ----------
-            // ---------- New: Bangle sets featured in the signature slider ----------
+            // ---------- Bangles Collection ----------
+            {
+                id: 17, name: "Artisanal Wooden & Brass Bangles", category: "Bangles", price: 249, originalPrice: 299, images: [
+                    "images/bangles/w1.1.png", "images/bangles/w1.png"]
+            },
+            {
+                id: 18, name: "Rustic Carved Wooden Kada Set", category: "Bangles", price: 249, originalPrice: 299, images: [
+                    "images/bangles/w2.png"]
+            },
+            {
+                id: 19, name: "Turquoise Sunflower Thread Bangles", category: "Bangles", price: 149, images: [
+                    "images/bangles/b4.png", "images/bangles/b4.1.png"]
+            },
             {
                 id: 14, name: "Purple Aina Thread Bangles", category: "Bangles", price: 399, images: [
                     "images/bangles/b1.png", "images/bangles/b1.1.png"]
@@ -1571,13 +1631,16 @@
         function cardTemplate(item) {
             const isSig = item.id === SIGNATURE_ITEM_ID;
             const isPremium = item.category === PREMIUM_CATEGORY;
+            const priceMarkup = item.originalPrice
+                ? `${formatPrice(item.price)} <s style="color:#9a8f86; font-size:0.85em; font-weight:400; text-decoration:line-through; margin-left:4px;">${formatPrice(item.originalPrice)}</s>`
+                : formatPrice(item.price);
             return `
             <div class="${isPremium ? "col-6 col-md-6 col-lg-4" : "col-6 col-md-4 col-lg-3"}">
                 <div class="gal-item ${isSig ? "is-signature" : ""} ${isPremium ? "is-premium" : ""}" data-id="${item.id}">
                     <div class="gal-media">
                         ${isPremium
                     ? `<span class="premium-badge"><i class="bi bi-gem"></i> Premium</span>`
-                    : `<span class="cat-badge">${item.category}</span>`}
+                    : (item.originalPrice ? `<span class="cat-badge" style="background:var(--maroon-deep); color:var(--gold-light);">Offer ₹${item.price}</span>` : `<span class="cat-badge">${item.category}</span>`)}
                         <span class="photo-badge"><i class="bi bi-images"></i> ${item.images.length}</span>
                         <img src="${item.images[0]}" alt="${item.name}" loading="lazy">
                         <span class="loupe-corner tl"></span>
@@ -1588,7 +1651,7 @@
                     </div>
                     <div class="gal-caption">
                         <div class="name">${item.name}</div>
-                        <div class="price">${formatPrice(item.price)}</div>
+                        <div class="price">${priceMarkup}</div>
                     </div>
                 </div>
             </div>`;
@@ -1678,7 +1741,9 @@
             lbImage.src = photo.src;
             lbImage.alt = photo.item.name;
             lbName.textContent = photo.item.name;
-            lbPrice.textContent = formatPrice(photo.item.price);
+            lbPrice.innerHTML = photo.item.originalPrice
+                ? `${formatPrice(photo.item.price)} <s style="color:#e0d5c8; font-size:0.85em; text-decoration:line-through; margin-left:6px;">${formatPrice(photo.item.originalPrice)}</s> <span style="font-size:0.75em; color:var(--gold-light); margin-left:6px;">(Special Offer)</span>`
+                : formatPrice(photo.item.price);
             lbCount.textContent = `${currentIndex + 1} / ${FLAT_PHOTOS.length}`;
 
             if (photo.item.images.length > 1) {
